@@ -2,7 +2,10 @@
 .env
 
 # Build output folders
-build/
+public/
+
+# Cache folders
+.cache/
 
 # Dependency directory
 node_modules
