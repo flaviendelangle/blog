@@ -1,0 +1,14 @@
+# Environment Configuration
+.env
+
+# Build output folders
+build/
+
+# Dependency directory
+node_modules
+
+# Debug log from npm
+npm-debug.log
+
+# IntelliJ IDE ignore
+.idea
