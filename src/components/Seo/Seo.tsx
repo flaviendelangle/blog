@@ -71,7 +71,7 @@ const Seo: React.FunctionComponent<SeoProps> = ({
 
 interface SeoProps {
   lang?: string
-  meta?: { name: string, content: string }[]
+  meta?: { name: string; content: string }[]
   description?: string
   title: string
 }

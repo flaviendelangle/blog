@@ -1,10 +1,13 @@
 import * as React from 'react'
 
-import { Title } from '@habx/lib-design-system'
+import { Text } from '@habx/lib-design-system'
 
 import Layout from '../components/Layout'
-import Seo from '../components/Seo/seo'
 
-const Article = () => <Layout title="Article example"></Layout>
+const Article = () => (
+  <Layout title="One year with NextJS">
+    <Text>Nothing here yet</Text>
+  </Layout>
+)
 
 export default Article

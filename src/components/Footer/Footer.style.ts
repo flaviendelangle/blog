@@ -8,6 +8,6 @@ export const FooterContainer = styled(Background)``
 
 export const FooterContent = styled.footer`
   ${regularContentWidth};
-  
+
   padding: 48px;
 `

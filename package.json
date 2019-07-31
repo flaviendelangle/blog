@@ -1,16 +1,18 @@
 {
   "name": "blog",
-  "private": true,
-  "description": "Tech Blog",
+  "private": false,
+  "description": "Flavien DELANGLE Tech Blog",
   "version": "0.1.0",
   "author": "Flavien Delangle <flaviendelangle@gmail.com>",
   "keywords": [],
   "license": "MIT",
   "scripts": {
     "build": "gatsby build",
-    "develop": "gatsby develop",
-    "start": "npm run develop",
-    "serve": "gatsby serve"
+    "start": "gatsby develop",
+    "serve": "gatsby serve",
+    "lint": "eslint \"src/**/*.{js,jsx,ts,tsx}\"",
+    "lint:fix": "npm run lint -- --fix",
+    "type": "tsc --noEmit"
   },
   "husky": {
     "hooks": {
@@ -25,14 +27,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/gatsbyjs/gatsby-starter-default"
+    "url": "https://github.com/flaviendelangle/blog"
   },
   "bugs": {
-    "url": "https://github.com/gatsbyjs/gatsby/issues"
+    "url": "https://github.com/flaviendelangle/blog/issues"
   },
   "dependencies": {
-    "@habx/lib-design-system": "^1.19.1",
-    "@types/react-helmet": "^5.0.8",
+    "@habx/lib-design-system": "^1.19.3",
     "gatsby": "^2.13.39",
     "gatsby-image": "^2.2.6",
     "gatsby-plugin-manifest": "^2.2.4",
@@ -41,7 +42,6 @@
     "gatsby-plugin-sharp": "^2.2.9",
     "gatsby-source-filesystem": "^2.1.6",
     "gatsby-transformer-sharp": "^2.2.4",
-    "prop-types": "^15.7.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-helmet": "^5.2.1",
@@ -53,7 +53,10 @@
     "@types/node": "^12.6.8",
     "@types/react": "^16.8.23",
     "@types/react-dom": "^16.8.5",
+    "@types/react-helmet": "^5.0.8",
     "@types/styled-components": "^4.1.18",
+    "babel-plugin-styled-components": "^1.10.6",
+    "gatsby-plugin-styled-components": "^3.1.2",
     "gatsby-plugin-typescript": "^2.1.2",
     "husky": "^3.0.0",
     "lint-staged": "^9.2.0",
