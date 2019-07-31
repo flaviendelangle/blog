@@ -42,7 +42,7 @@ const About = () => {
         </Link>
       </Resource>
       <Resource>
-        <Link newTab href="https://habx.github.io/thunder-ui/">
+        <Link newTab href="https://habx.github.io/lib-design-system/">
           Storybook @habx/lib-design-system
         </Link>
       </Resource>

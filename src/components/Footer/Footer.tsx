@@ -10,7 +10,7 @@ const Footer: React.FunctionComponent<{}> = () => (
       <Text
         markdown
         inline
-      >{`© ${new Date().getFullYear()}, Built with [Gatsby](https://www.gatsbyjs.org)`}</Text>
+      >{`© ${new Date().getFullYear()}, Built with [Gatsby](https://www.gatsbyjs.org) and [@habx/lib-design-system](https://habx.github.io/lib-design-system/)`}</Text>
     </FooterContent>
   </FooterContainer>
 )
