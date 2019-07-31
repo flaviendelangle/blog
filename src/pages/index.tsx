@@ -3,7 +3,7 @@ import * as React from 'react'
 
 import { Title, Button, Icon } from '@habx/lib-design-system'
 
-import Layout from '../components/Layout'
+import Layout from '@components/Layout'
 
 const IndexPage = () => (
   <Layout title="Home">

@@ -3,7 +3,7 @@ import * as React from 'react'
 
 import { Title, Text, palette } from '@habx/lib-design-system'
 
-import Seo from '../Seo'
+import Seo from '@components/Seo'
 
 import { HeaderContainer, HeaderContent, HeaderLine } from './Header.style'
 

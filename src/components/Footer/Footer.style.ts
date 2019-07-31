@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 import { Background } from '@habx/lib-design-system'
 
-import { regularContentWidth } from '../../style/mixins'
+import { regularContentWidth } from '@style/mixins'
 
 export const FooterContainer = styled(Background)``
 

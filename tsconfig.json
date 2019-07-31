@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "jsx": "react",
-    "rootDirs": ["./src", "./.storybook"],
+    "rootDirs": ["./src"],
     "outDir": "./dist",
     "declarationDir": "./dist/typings",
     "lib": ["dom"],
@@ -14,6 +14,11 @@
     "target": "esnext",
     "module": "commonjs",
     "esModuleInterop": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "baseUrl": "./src",
+    "paths": {
+      "@components/*": ["components/*"],
+      "@style/*": ["style/*"]
+    }
   }
 }

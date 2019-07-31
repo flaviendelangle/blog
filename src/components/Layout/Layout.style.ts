@@ -3,7 +3,7 @@ import styledNormalize from 'styled-normalize'
 
 import { titleStyles, linkStyle } from '@habx/lib-design-system'
 
-import { regularContentWidth } from '../../style/mixins'
+import { regularContentWidth } from '@style/mixins'
 
 export const GlobalStyle = createGlobalStyle`
   ${styledNormalize};
