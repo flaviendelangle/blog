@@ -3,14 +3,15 @@ import * as React from 'react'
 
 import { Title, Text, palette } from '@habx/lib-design-system'
 
-import { HeaderContainer, HeaderContent } from './Header.style'
+import Seo from '../Seo'
 
-const Header: React.FunctionComponent<{}> = () => {
+import { HeaderContainer, HeaderContent, HeaderLine } from './Header.style'
+
+const Header: React.FunctionComponent<HeaderProps> = ({ title }) => {
   const data = useStaticQuery(graphql`
-    query SiteTitleQuery {
+    query HeaderQuery {
       site {
         siteMetadata {
-          title
           coordinates {
             githubProfile
           }
@@ -21,16 +22,24 @@ const Header: React.FunctionComponent<{}> = () => {
 
   return (
     <HeaderContainer backgroundColor={palette.blue[400]}>
+      <Seo title={title} />
       <HeaderContent>
-        <Link to="/">
-          <Title type="header">{data.site.siteMetadata.title}</Title>
-        </Link>
-        <Text markdown inline>
-          {`Created by [Flavien DELANGLE](${data.site.siteMetadata.coordinates.githubProfile})`}
-        </Text>
+        <HeaderLine>
+          <Link to="/">
+            <Title type="section">React Blog</Title>
+          </Link>
+          <Text markdown inline>
+            {`Created by [Flavien DELANGLE](${data.site.siteMetadata.coordinates.githubProfile})`}
+          </Text>
+        </HeaderLine>
+        <Title type="header">{title}</Title>
       </HeaderContent>
     </HeaderContainer>
   )
+}
+
+interface HeaderProps {
+  title: string
 }
 
 export default Header
