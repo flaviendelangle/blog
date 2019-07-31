@@ -5,11 +5,11 @@ import { Title } from '@habx/lib-design-system'
 import Layout from '../components/Layout'
 import SEO from '../components/seo'
 
-const NotFoundPage = () => (
+const Article = () => (
   <Layout>
-    <SEO title="404: Not found" />
-    <Title type="article">Nothing here :(</Title>
+    <SEO title="Page two" />
+    <Title type="article">Article example</Title>
   </Layout>
 )
 
-export default NotFoundPage
+export default Article

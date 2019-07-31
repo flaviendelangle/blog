@@ -31,7 +31,7 @@
     "url": "https://github.com/gatsbyjs/gatsby/issues"
   },
   "dependencies": {
-    "@habx/lib-design-system": "^1.14.0",
+    "@habx/lib-design-system": "^1.19.1",
     "gatsby": "^2.13.39",
     "gatsby-image": "^2.2.6",
     "gatsby-plugin-manifest": "^2.2.4",
@@ -44,7 +44,8 @@
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-helmet": "^5.2.1",
-    "styled-components": "^4.3.2"
+    "styled-components": "^4.3.2",
+    "styled-normalize": "^8.0.6"
   },
   "devDependencies": {
     "@habx/eslint-config-client": "^2.0.6",

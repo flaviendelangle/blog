@@ -1,8 +1,11 @@
 module.exports = {
   siteMetadata: {
-    title: `Flavien Delangle Tech Blog`,
+    title: `Temporary title`,
     description: `Tech blog`,
     author: `@flaviendelangle`,
+    coordinates: {
+      githubProfile: 'https://github.com/flaviendelangle',
+    },
   },
   plugins: [
     `gatsby-plugin-react-helmet`,

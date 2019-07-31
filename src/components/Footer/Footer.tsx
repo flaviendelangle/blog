@@ -1,0 +1,18 @@
+import * as React from 'react'
+
+import { Text, palette } from '@habx/lib-design-system'
+
+import { FooterContainer, FooterContent } from './Footer.style'
+
+const Footer: React.FunctionComponent<{}> = () => (
+  <FooterContainer backgroundColor={palette.darkBlue[900]}>
+    <FooterContent>
+      <Text
+        markdown
+        inline
+      >{`© ${new Date().getFullYear()}, Built with [Gatsby](https://www.gatsbyjs.org)`}</Text>
+    </FooterContent>
+  </FooterContainer>
+)
+
+export default Footer
