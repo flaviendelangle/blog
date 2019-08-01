@@ -2,16 +2,18 @@ import { Link, graphql, useStaticQuery } from 'gatsby'
 import * as React from 'react'
 import styled from 'styled-components'
 
-import { Title, Text, Card } from '@habx/lib-design-system'
+import { Title, Text } from '@habx/lib-design-system'
 
 import Layout from '@components/Layout'
 
-const ArticleCard = styled(Card)`
-  margin-top: 24px;
-
-  & > h3 {
-    margin-bottom: 12px;
+const Article = styled.div`
+  &:not(:first-child) {
+    margin-top: 24px;
   }
+`
+
+export const ArticleDate = styled(Text)`
+  margin-bottom: 12px;
 `
 
 const IndexPage = () => {
@@ -28,6 +30,7 @@ const IndexPage = () => {
             frontmatter {
               title
               path
+              date(formatString: "MMMM DD, YYYY")
             }
           }
         }
@@ -39,16 +42,17 @@ const IndexPage = () => {
     <Layout
       title="A React Journey"
       width="small"
-      homeLinkTitle="A personal blog"
+      homeLinkTitle="Yet another tech blog"
     >
       {data.allMarkdownRemark.edges.map(({ node }) => (
         <Link to={node.frontmatter.path}>
-          <ArticleCard flat>
+          <Article>
             <Title type="section" primary>
               {node.frontmatter.title}
             </Title>
+            <ArticleDate type="caption">{node.frontmatter.date}</ArticleDate>
             <Text>{node.excerpt}</Text>
-          </ArticleCard>
+          </Article>
         </Link>
       ))}
     </Layout>
@@ -62,6 +66,7 @@ type Article = {
     frontmatter: {
       title: string
       path: string
+      date: string
     }
   }
 }

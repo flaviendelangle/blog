@@ -7,9 +7,11 @@ import { markdownContainer } from '@style/mixins'
 export const ArticleMarkdown = styled(Text)`
   ${markdownContainer};
 
+  margin-top: 24px;
+
   & hr {
     margin: 36px 0 48px 0;
-    background-color: ${palette.darkBlue[200]};
+    border: 1px solid ${palette.darkBlue[300]};
   }
 
   & ol,
@@ -30,13 +32,11 @@ export const ArticleMarkdown = styled(Text)`
   }
 
   & .gatsby-highlight {
-    background-color: ${palette.yellow[200]};
     border-radius: 2px;
     overflow: hidden;
     margin-top: 24px;
 
     & pre[class*='language-'] {
-      background-color: transparent;
     }
 
     @media (${breakpoints.below.phone}) {

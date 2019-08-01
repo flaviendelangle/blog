@@ -29,7 +29,7 @@ const Header: React.FunctionComponent<HeaderProps> = ({
   `)
 
   return (
-    <HeaderContainer backgroundColor={palette.orange[400]}>
+    <HeaderContainer backgroundColor={palette.green[400]}>
       <Seo title={title || ''} />
       <HeaderContent>
         <HeaderLine>
@@ -44,7 +44,7 @@ const Header: React.FunctionComponent<HeaderProps> = ({
             </AboutLink>
           </Link>
         </HeaderLine>
-        <Title type="header">{title}</Title>
+        <Title type="headerSmall">{title}</Title>
         {subtitle && <Title type="section">{subtitle}</Title>}
       </HeaderContent>
     </HeaderContainer>

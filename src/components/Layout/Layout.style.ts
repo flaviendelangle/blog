@@ -37,10 +37,10 @@ export const LayoutContainer = styled.div`
 
 export const LayoutContent = styled.main`
   flex: 1 1 auto;
-  padding: 48px 0 24px 0;
+  padding: 48px 0;
 
   @media (${breakpoints.below.phone}) {
-    padding: 24px 0 0 0;
+    padding: 24px 0;
   }
 
   &[data-width='small'] {

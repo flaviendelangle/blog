@@ -25,7 +25,6 @@ const About = () => {
 
   return (
     <Layout title="About me">
-      <Title type="section">Resources</Title>
       <Resource>
         <Link newTab href={data.site.siteMetadata.coordinates.githubProfile}>
           Github profile
