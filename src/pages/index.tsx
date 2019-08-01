@@ -8,7 +8,7 @@ import Layout from '@components/Layout'
 const IndexPage = () => (
   <Layout title="Home">
     <Title type="article">Home Page example</Title>
-    <Link to="/article">
+    <Link to="/article/ssr">
       <Button
         outline
         iconRight={<Icon icon="arrow-east" />}

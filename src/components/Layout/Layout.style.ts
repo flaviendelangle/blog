@@ -8,6 +8,14 @@ import { regularContentWidth } from '@style/mixins'
 export const GlobalStyle = createGlobalStyle`
   ${styledNormalize};
   
+  html, body, #___gatsby {
+    width: 100vw;
+  }
+  
+  *, *:before, *:after {
+    box-sizing: border-box;
+  }
+  
   *[data-markdown="true"] {
     & p {
       margin: 12px 0;

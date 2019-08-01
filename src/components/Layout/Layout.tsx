@@ -1,4 +1,3 @@
-import { graphql, useStaticQuery } from 'gatsby'
 import * as React from 'react'
 
 import Footer from '@components/Footer'
@@ -6,28 +5,14 @@ import Header from '@components/Header'
 
 import { LayoutContainer, LayoutContent, GlobalStyle } from './Layout.style'
 
-const Layout: React.FunctionComponent<LayoutProps> = ({ children, title }) => {
-  const data = useStaticQuery(graphql`
-    query LayoutQuery {
-      site {
-        siteMetadata {
-          title
-        }
-      }
-    }
-  `)
-
-  const realTitle = title || data.site.siteMetadata.title
-
-  return (
-    <LayoutContainer>
-      <GlobalStyle />
-      <Header title={realTitle} />
-      <LayoutContent>{children}</LayoutContent>
-      <Footer />
-    </LayoutContainer>
-  )
-}
+const Layout: React.FunctionComponent<LayoutProps> = ({ children, title }) => (
+  <LayoutContainer>
+    <GlobalStyle />
+    <Header title={title} />
+    <LayoutContent>{children}</LayoutContent>
+    <Footer />
+  </LayoutContainer>
+)
 
 interface LayoutProps {
   children: React.ReactNode
