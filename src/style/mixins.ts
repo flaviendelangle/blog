@@ -2,8 +2,8 @@ import { css } from 'styled-components'
 
 import { breakpoints, titleStyles } from '@habx/lib-design-system'
 
-export const regularContentWidth = css`
-  width: 1296px;
+export const contentWidth = (width: number) => css`
+  width: ${width}px;
   max-width: calc(100% - 96px);
   margin: auto;
 
@@ -11,6 +11,10 @@ export const regularContentWidth = css`
     max-width: calc(100% - 48px);
   }
 `
+
+export const regularContentWidth = contentWidth(1296)
+
+export const smallContentWidth = contentWidth(840)
 
 export const markdownContainer = css`
   & p {

@@ -1,10 +1,10 @@
 import styled from 'styled-components'
 
-import { palette } from '@habx/lib-design-system'
+import { Text, palette, breakpoints } from '@habx/lib-design-system'
 
 import { markdownContainer } from '@style/mixins'
 
-export const ArticleMarkdown = styled.div`
+export const ArticleMarkdown = styled(Text)`
   ${markdownContainer};
 
   & .gatsby-highlight {
@@ -15,6 +15,10 @@ export const ArticleMarkdown = styled.div`
 
     & pre[class*='language-'] {
       background-color: transparent;
+    }
+
+    @media (${breakpoints.below.phone}) {
+      margin: 24px -24px 0 -24px;
     }
   }
 `
