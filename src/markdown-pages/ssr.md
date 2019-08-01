@@ -13,8 +13,8 @@ All of our React code is executed both on the server and on the client. Therefor
 The biggest issue here is to access the variables like **window** and **request** that contains most of the shared data between the server and the client version (routes, queries, device information, ...).
 On the client side, **window** is a global variable and can be accessed anywhere. But on the server side, you will have to pass **request** to every place you want to use basic data link the current URL of your application.
 
-
-### Use NextJS publicRuntimeConfig when possible
+---
+## Use NextJS publicRuntimeConfig whenever possible
 
 If the data you want to use can be determined ahead of runtime, the best solution is to use the [publicRuntimeConfig](https://next-site-hoiiwuqase.zeit.sh/docs#exposing-configuration-to-the-server--client-side) of NextJS.
 This data will be accessible from anywhere.
@@ -38,7 +38,8 @@ export default createGlobalStyle`
 `
 ```
 
-### For static data, use React.createContext and React.useContext
+---
+## For static data, use the React context
 
 The more complex our application became, the more we needed small static data like the current language of the user, the query arguments, the device family, ...
 
@@ -94,3 +95,44 @@ class ACE extends App {
   }
 }
 ```
+
+---
+## For API data, use a global state (ex: Redux, Apollo Client)
+
+On a regular React Application, you may be tempted to use local state to fetch data used only on specific parts of your application.
+
+```typescript jsx
+import * as React from 'react'
+import { fetchCountries } from '@lib/countries'
+import { Country } from '@components/molecules'
+
+const CountryList = () => {
+  const [countries, setCountries] = React.useState([])
+
+  React.useEffect(() => {
+    const fetch = async () => {
+      const response = await fetchCountries()
+      setCountries(countries)
+    }   
+  })
+
+  return countries.map(country => <Country key={country.id} data={country} />)
+}
+```
+
+However on an SSR application, your component would be fetching all the data twice with a nice flickering on the hydration.
+This issue can be solved by using a global store and by passing it from the server to the frontend.
+
+The solution we decided to use last summer when we began to do API calls on our project was Redux because at the time it was used in most of our codebase.
+We used [next-redux-wrapper](https://github.com/kirill-konshin/next-redux-wrapper) which make the usage of Redux with NextJS super easy.
+
+---
+## Recap
+
+Managing your data in a SSR application can be quite hard, especially if your global structure is not adapted. In the last year, we came to the following conclusions :
+
+1) If your data can be determined at build time, use **publicRuntimeConfig**
+2) For static data, use **React.createContext** and generate data in *_document.js* or *_app.js* to avoid inconsistencies
+3) For API data, use a global store like **Redux** or **Apollo Client**
+4) Only use local state for UI data (is my dropdown opened or not, what is the value of this input ?)
+
