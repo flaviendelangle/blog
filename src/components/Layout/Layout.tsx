@@ -5,28 +5,23 @@ import Header from '@components/Header'
 
 import { ACEFonts } from '@style/fonts'
 
+import LayoutProps from './Layout.interface'
 import { LayoutContainer, LayoutContent, GlobalStyle } from './Layout.style'
 
 const Layout: React.FunctionComponent<LayoutProps> = ({
   children,
+  width = 'regular',
   title,
   subtitle,
-  width = 'regular',
+  homeLinkTitle,
 }) => (
   <LayoutContainer>
     <GlobalStyle />
     <ACEFonts />
-    <Header title={title} subtitle={subtitle} />
+    <Header title={title} subtitle={subtitle} homeLinkTitle={homeLinkTitle} />
     <LayoutContent data-width={width}>{children}</LayoutContent>
     <Footer />
   </LayoutContainer>
 )
-
-interface LayoutProps {
-  children: React.ReactNode
-  title?: string
-  subtitle?: string
-  width?: 'small' | 'regular'
-}
 
 export default Layout

@@ -1,13 +1,23 @@
 import { graphql, Link, useStaticQuery } from 'gatsby'
 import * as React from 'react'
 
-import { Title, Text, palette } from '@habx/lib-design-system'
+import { Title, palette } from '@habx/lib-design-system'
 
 import Seo from '@components/Seo'
 
-import { HeaderContainer, HeaderContent, HeaderLine } from './Header.style'
+import HeaderProps from './Header.interface'
+import {
+  HeaderContainer,
+  HeaderContent,
+  HeaderLine,
+  AboutLink,
+} from './Header.style'
 
-const Header: React.FunctionComponent<HeaderProps> = ({ title, subtitle }) => {
+const Header: React.FunctionComponent<HeaderProps> = ({
+  title,
+  subtitle,
+  homeLinkTitle,
+}) => {
   const data = useStaticQuery(graphql`
     query HeaderQuery {
       site {
@@ -24,10 +34,14 @@ const Header: React.FunctionComponent<HeaderProps> = ({ title, subtitle }) => {
       <HeaderContent>
         <HeaderLine>
           <Link to="/">
-            <Title type="section">{data.site.siteMetadata.title}</Title>
+            <Title type="section">
+              {homeLinkTitle || data.site.siteMetadata.title}
+            </Title>
           </Link>
           <Link to="/about">
-            <Text opacity={1}>Created by Flavien DELANGLE</Text>
+            <AboutLink opacity={1} markdown inline>
+              Created by Flavien DELANGLE
+            </AboutLink>
           </Link>
         </HeaderLine>
         <Title type="header">{title}</Title>
@@ -35,11 +49,6 @@ const Header: React.FunctionComponent<HeaderProps> = ({ title, subtitle }) => {
       </HeaderContent>
     </HeaderContainer>
   )
-}
-
-interface HeaderProps {
-  title?: string
-  subtitle?: string
 }
 
 export default Header

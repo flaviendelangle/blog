@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-import { Background, breakpoints } from '@habx/lib-design-system'
+import { Text, Background, breakpoints } from '@habx/lib-design-system'
 
 import { regularContentWidth } from '@style/mixins'
 
@@ -22,4 +22,10 @@ export const HeaderLine = styled.div`
   justify-content: space-between;
   align-items: baseline;
   padding-bottom: 24px;
+`
+
+export const AboutLink = styled(Text)`
+  @media (${breakpoints.below.phone}) {
+    display: none;
+  }
 `

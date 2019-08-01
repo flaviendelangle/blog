@@ -34,11 +34,13 @@ export default createGlobalStyle`
     font-weight: normal;
     font-style: normal;
     font-display: fallback;
-  }
+  } 
 `
 ```
 
 ### For static data, use React.createContext and React.useContext
+
+The more complex our application became, the more we needed small static data like the current language of the user, the query arguments, the device family, ...
 
 ```js
 // _app.js

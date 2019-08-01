@@ -14,7 +14,7 @@ export const contentWidth = (width: number) => css`
 
 export const regularContentWidth = contentWidth(1296)
 
-export const smallContentWidth = contentWidth(840)
+export const smallContentWidth = contentWidth(672)
 
 export const markdownContainer = css`
   & p {
