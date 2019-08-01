@@ -13,7 +13,7 @@ exports.onCreateWebpackConfig = ({ actions }) => {
 
 exports.createPages = ({ actions, graphql }) => {
   const { createPage } = actions
-  const blogPostTemplate = path.resolve(`src/templates/Article.tsx`)
+  const blogPostTemplate = path.resolve(`src/templates/Article/index.ts`)
   return graphql(`
     {
       allMarkdownRemark(

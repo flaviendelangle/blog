@@ -5,10 +5,14 @@ import Header from '@components/Header'
 
 import { LayoutContainer, LayoutContent, GlobalStyle } from './Layout.style'
 
-const Layout: React.FunctionComponent<LayoutProps> = ({ children, title }) => (
+const Layout: React.FunctionComponent<LayoutProps> = ({
+  children,
+  title,
+  subtitle,
+}) => (
   <LayoutContainer>
     <GlobalStyle />
-    <Header title={title} />
+    <Header title={title} subtitle={subtitle} />
     <LayoutContent>{children}</LayoutContent>
     <Footer />
   </LayoutContainer>
@@ -17,6 +21,7 @@ const Layout: React.FunctionComponent<LayoutProps> = ({ children, title }) => (
 interface LayoutProps {
   children: React.ReactNode
   title?: string
+  subtitle?: string
 }
 
 export default Layout

@@ -7,7 +7,7 @@ import Seo from '@components/Seo'
 
 import { HeaderContainer, HeaderContent, HeaderLine } from './Header.style'
 
-const Header: React.FunctionComponent<HeaderProps> = ({ title }) => {
+const Header: React.FunctionComponent<HeaderProps> = ({ title, subtitle }) => {
   const data = useStaticQuery(graphql`
     query HeaderQuery {
       site {
@@ -31,6 +31,7 @@ const Header: React.FunctionComponent<HeaderProps> = ({ title }) => {
           </Link>
         </HeaderLine>
         <Title type="header">{title}</Title>
+        {subtitle && <Title type="section">{subtitle}</Title>}
       </HeaderContent>
     </HeaderContainer>
   )
@@ -38,6 +39,7 @@ const Header: React.FunctionComponent<HeaderProps> = ({ title }) => {
 
 interface HeaderProps {
   title?: string
+  subtitle?: string
 }
 
 export default Header

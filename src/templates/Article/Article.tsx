@@ -1,5 +1,6 @@
-import { graphql } from 'gatsby'
 import * as React from 'react'
+
+import { ArticleMarkdown } from './Article.style'
 
 import Layout from '@components/Layout'
 
@@ -7,26 +8,13 @@ const Article: React.FunctionComponent<ArticleProps> = ({ data }) => {
   const { markdownRemark } = data
   const { frontmatter, html } = markdownRemark
   return (
-    <Layout title={frontmatter.title}>
-      <div id="markdown-page">
+    <Layout title={frontmatter.title} subtitle={frontmatter.subtitle}>
+      <ArticleMarkdown>
         <div dangerouslySetInnerHTML={{ __html: html }} />
-      </div>
+      </ArticleMarkdown>
     </Layout>
   )
 }
-
-export const pageQuery = graphql`
-  query($path: String!) {
-    markdownRemark(frontmatter: { path: { eq: $path } }) {
-      html
-      frontmatter {
-        date(formatString: "MMMM DD, YYYY")
-        path
-        title
-      }
-    }
-  }
-`
 
 interface ArticleProps {
   data: {
@@ -36,6 +24,7 @@ interface ArticleProps {
         date: string
         path: string
         title: string
+        subtitle: string
       }
     }
   }
