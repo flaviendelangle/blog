@@ -10,14 +10,16 @@ import { ArticleMarkdown } from './Article.style'
 
 const Article: React.FunctionComponent<ArticleProps> = ({ data }) => {
   const { markdownRemark } = data
-  const { frontmatter, html } = markdownRemark
+  const { frontmatter, html, timeToRead } = markdownRemark
 
   const category = CATEGORIES[frontmatter.category] || DEFAULT_CATEGORY
 
   return (
     <Layout title={category.title} width="small">
       <Title type="headerSmall">{frontmatter.title}</Title>
-      <Text>{frontmatter.date}</Text>
+      <Text>
+        {frontmatter.date} - {timeToRead}min read{' '}
+      </Text>
       <ArticleMarkdown>
         <div dangerouslySetInnerHTML={{ __html: html }} />
       </ArticleMarkdown>
@@ -29,6 +31,7 @@ interface ArticleProps {
   data: {
     markdownRemark: {
       html: string
+      timeToRead: number
       frontmatter: {
         date: string
         path: string

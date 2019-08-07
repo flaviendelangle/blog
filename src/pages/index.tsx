@@ -27,6 +27,7 @@ const IndexPage = () => {
           node {
             id
             excerpt(pruneLength: 250)
+            timeToRead
             frontmatter {
               title
               path
@@ -50,7 +51,9 @@ const IndexPage = () => {
             <Title type="section" primary>
               {node.frontmatter.title}
             </Title>
-            <ArticleDate type="caption">{node.frontmatter.date}</ArticleDate>
+            <ArticleDate type="caption">
+              {node.frontmatter.date} - {node.timeToRead}min read
+            </ArticleDate>
             <Text>{node.excerpt}</Text>
           </Article>
         </Link>
@@ -63,6 +66,7 @@ type Article = {
   node: {
     id: number
     excerpt: string
+    timeToRead: number
     frontmatter: {
       title: string
       path: string
