@@ -6,15 +6,13 @@ category: "ssr"
 ---
 
 At [Habx](https://www.habx.com/en), we launched our first product using [NextJS](https://nextjs.org/) in June 2018. 
-The goal was to generate pages built with our custom CMS with a strong focus on SEO and performances.
-It was a perfect occasion to try *Server Side Rendering* and chose NextJS for it's simplicity and flexibility.
+The goal was to generate pages built on our custom CMS with a strong focus on SEO and performance.
+It was a perfect occasion to try *Server Side Rendering* and we chose NextJS for it's simplicity and flexibility.
 
-In this series of articles, I'll try to tackle some of the issues we faced and some of the solutions we found.
+In this series of articles, I'll try to tackle some of the most frequent issues faced using *Server Side Rendering* and how we tried to solve them. 
 
-A lot of the problems we had were linked to a bad management of our data, especially when we had to use it on both the server and the client.
-
-One of the most important lessons I learned building a Server Side Rendered Application is the importance of single sources of truth.
-In an application built with NextJS, all of our React code is executed twice. Therefore, we must structure all of our data to avoid inconsistencies between both worlds.
+A lot of the problems we had were linked to a bad management of our data, especially for content used on both the server and the client.
+These issues taught me the importance of single sources of truth. Indeed, in an application built with NextJS, all of our React code is executed twice. Therefore, we must structure all of our data to avoid inconsistencies between both worlds.
 
 ---
 ### Use NextJS runtime config whenever possible
@@ -44,16 +42,16 @@ export default createGlobalStyle`
 ### For static data, use the React context
 
 The more complex our application became, the more we needed small static data like the current language of the user, the query arguments, the device family, ...
-At first we tried to put a lot of logic in the components. However we quickly realised that I could hardly scale. 
+At first we tried to put a lot of logic in the components themselves. However we quickly realised that it could hardly scale. 
 We then decided to compute all these information in *_app.js* and *_document.js* and to use React context to dispatch it to the rest of the application.
 
 #### Page related data (ex: query)
 
 Most of the data handled by these contexts is relative to the page the user is currently visiting.
-If he use an internal link, these data must be updated accordingly.
+If he uses an internal link, these data must be updated accordingly.
 
 That's why we decided to use *_app.js* to compute them.
-It's important to remember that *_app.js* is executed both on the Server and on the Client. 
+It's important to remember that *_app.js* is executed both on the server and on the client. 
 Therefore your functions must be able to create the same data with the server variables (often **req**) and the client variables (often **window**).
 
 ```js
@@ -111,7 +109,7 @@ class ACE extends App {
 #### Visit related data (ex: feature flags)
 
 Some data can only be gathered on the server, often for security reasons. One of our most recent use case is the list of the feature flags used by our application.
-For this kind of data, it's impossible to use *_app.js* because any page accessed with an internal link would not be able to have these data.
+For this kind of data, it's impossible to use *_app.js* because any page accessed with an internal link would not be able to have them.
 
 The solution we came with is to compute the data in an Express Middleware and to store it on **req**.
 Then we just have to write it on **window** in *_document.js* to be able to access it both on server and client side in *_app.js*.
@@ -242,11 +240,34 @@ const CountryList = () => {
 ```
 
 However in an SSR application, your component would be fetching all the data twice with a nice flickering after the hydration.
-This issue can be solved by using a global store and by passing it from the server to the frontend.
+This issue can be solved by using a global state and by passing it from the server to the client.
 
-The solution we decided to use last summer when we began to do API calls on our project was Redux because at the time it was used in most of our codebase.
+The solution we decided to use last summer when we began to do API calls on our project was Redux because at the time it was our main store on most of our codebase.
 We used [next-redux-wrapper](https://github.com/kirill-konshin/next-redux-wrapper) which make the usage of Redux with NextJS super easy.
 
+To be sure to have the data loaded into your store and your components before sending the HTML to the client, make sure to fetch it in *Page.getInitialProps*.
+
+```typescript jsx
+import * as React from 'react'
+import { useSelector } from 'react-redux'
+
+import { fetchContent } from '@actions/content'
+
+const Page = () => {
+  const content = useSelector(state => state.content)
+
+  return (
+    <React.Fragment>
+      <h2>{ content.title }</h2>
+      <span>{ content.message }</span>
+    </React.Fragment>  
+  )
+}
+
+Page.getInitialProps = async ({ store, query }) => {
+  await store.dispatch(fetchContent({ id: query.id }))
+}
+```
 
 ---
 ### Recap
@@ -255,5 +276,5 @@ Managing your data in a SSR application can be quite hard, especially if your gl
 
 1) If your data can be determined at build time, use **publicRuntimeConfig**
 2) For static data, use **React.createContext** and generate data in *_document.js* or *_app.js* to avoid inconsistencies
-3) For API data, use a global store like **Redux** or **Apollo Client**
+3) For API data, use a global store like **Redux** or **Apollo Client** and fetch everything in **Page.getInitialProps**
 
