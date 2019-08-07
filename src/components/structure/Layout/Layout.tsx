@@ -2,8 +2,8 @@ import * as React from 'react'
 
 import { ThemeProvider, palette } from '@habx/lib-design-system'
 
-import Footer from '@components/Footer'
-import Header from '@components/Header'
+import Footer from '../Footer'
+import Header from '../Header'
 
 import { ACEFonts } from '@style/fonts'
 

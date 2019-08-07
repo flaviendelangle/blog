@@ -3,7 +3,7 @@ import { graphql } from 'gatsby'
 import Article from './Article'
 
 export const pageQuery = graphql`
-  query($path: String!) {
+  query markdownPageContent($path: String!) {
     markdownRemark(frontmatter: { path: { eq: $path } }) {
       html
       timeToRead

@@ -1,5 +1,7 @@
+const fs = require('fs')
+const { introspectionQuery, graphql } = require('gatsby/graphql')
+const { buildClientSchema, printSchema } = require('graphql/utilities')
 const path = require('path')
-
 exports.onCreateWebpackConfig = ({ actions }) => {
   actions.setWebpackConfig({
     resolve: {
@@ -42,4 +44,12 @@ exports.createPages = ({ actions, graphql }) => {
       })
     })
   })
+}
+
+exports.onPostBootstrap = async ({ store }) => {
+  const { schema } = store.getState()
+
+  const response = await graphql(schema, introspectionQuery)
+  const cleanSchema = printSchema(buildClientSchema(response.data))
+  fs.writeFileSync('./schema.graphql', cleanSchema)
 }

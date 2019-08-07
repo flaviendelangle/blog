@@ -12,7 +12,8 @@
     "serve": "gatsby serve",
     "lint": "eslint \"src/**/*.{js,jsx,ts,tsx}\"",
     "lint:fix": "npm run lint -- --fix",
-    "type": "tsc --noEmit"
+    "type": "tsc --noEmit",
+    "build:types": "apollo codegen:generate --localSchemaFile=schema.graphql --target=typescript --includes=src/**/*.ts --tagName=graphql --addTypename types"
   },
   "husky": {
     "hooks": {
@@ -44,6 +45,7 @@
     "gatsby-source-filesystem": "^2.1.7",
     "gatsby-transformer-remark": "^2.6.10",
     "gatsby-transformer-sharp": "^2.2.4",
+    "lodash": "^4.17.15",
     "prismjs": "^1.17.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
@@ -53,14 +55,17 @@
   },
   "devDependencies": {
     "@habx/eslint-config-client": "^2.0.6",
+    "@types/lodash": "^4.14.136",
     "@types/node": "^12.6.8",
     "@types/react": "^16.8.23",
     "@types/react-dom": "^16.8.5",
     "@types/react-helmet": "^5.0.8",
     "@types/styled-components": "^4.1.18",
     "babel-plugin-styled-components": "^1.10.6",
+    "eslint-plugin-graphql": "^3.0.3",
     "gatsby-plugin-styled-components": "^3.1.2",
     "gatsby-plugin-typescript": "^2.1.2",
+    "graphql": "^14.4.2",
     "husky": "^3.0.0",
     "lint-staged": "^9.2.0",
     "typescript": "^3.5.3"

@@ -1,6 +1,8 @@
-import { useStaticQuery, graphql } from 'gatsby'
+import { get } from 'lodash'
 import * as React from 'react'
 import Helmet from 'react-helmet'
+
+import { useSiteMetadata } from './Seo.query'
 
 const Seo: React.FunctionComponent<SeoProps> = ({
   description = '',
@@ -8,21 +10,9 @@ const Seo: React.FunctionComponent<SeoProps> = ({
   meta = [],
   title,
 }) => {
-  const { site } = useStaticQuery(
-    graphql`
-      query {
-        site {
-          siteMetadata {
-            title
-            description
-            author
-          }
-        }
-      }
-    `
-  )
+  const siteMetadata = useSiteMetadata()
 
-  const metaDescription = description || site.siteMetadata.description
+  const metaDescription: string = description || siteMetadata.description || ''
 
   return (
     <Helmet
@@ -30,7 +20,7 @@ const Seo: React.FunctionComponent<SeoProps> = ({
         lang,
       }}
       title={title}
-      titleTemplate={`%s | ${site.siteMetadata.title}`}
+      titleTemplate={`%s | ${siteMetadata.title}`}
       meta={[
         {
           name: `description`,
@@ -54,7 +44,7 @@ const Seo: React.FunctionComponent<SeoProps> = ({
         },
         {
           name: `twitter:creator`,
-          content: site.siteMetadata.author,
+          content: get(siteMetadata, 'author', '') as string,
         },
         {
           name: `twitter:title`,

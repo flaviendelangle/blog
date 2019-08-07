@@ -1,11 +1,12 @@
-import { graphql, Link, useStaticQuery } from 'gatsby'
+import { Link } from 'gatsby'
 import * as React from 'react'
 
 import { Title, palette } from '@habx/lib-design-system'
 
-import Seo from '@components/Seo'
+import Seo from '@components/structure/Seo'
 
 import HeaderProps from './Header.interface'
+import { useSiteMetadata } from './Header.query'
 import {
   HeaderContainer,
   HeaderContent,
@@ -18,15 +19,7 @@ const Header: React.FunctionComponent<HeaderProps> = ({
   subtitle,
   homeLinkTitle,
 }) => {
-  const data = useStaticQuery(graphql`
-    query HeaderQuery {
-      site {
-        siteMetadata {
-          title
-        }
-      }
-    }
-  `)
+  const siteMetadata = useSiteMetadata()
 
   return (
     <HeaderContainer backgroundColor={palette.green[400]}>
@@ -34,9 +27,7 @@ const Header: React.FunctionComponent<HeaderProps> = ({
       <HeaderContent>
         <HeaderLine>
           <Link to="/">
-            <Title type="section">
-              {homeLinkTitle || data.site.siteMetadata.title}
-            </Title>
+            <Title type="section">{homeLinkTitle || siteMetadata.title}</Title>
           </Link>
           <Link to="/about">
             <AboutLink opacity={1} markdown inline>

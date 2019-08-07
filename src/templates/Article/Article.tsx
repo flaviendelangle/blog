@@ -2,7 +2,7 @@ import * as React from 'react'
 
 import { Title, Text } from '@habx/lib-design-system'
 
-import Layout from '@components/Layout'
+import Layout from '@components/structure/Layout'
 
 import { CATEGORIES, DEFAULT_CATEGORY } from '@lib/articles'
 
