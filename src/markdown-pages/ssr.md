@@ -11,8 +11,6 @@ It was a perfect occasion to try *Server Side Rendering* and chose NextJS for it
 
 In this series of articles, I'll try to tackle some of the issues we faced and some of the solutions we found.
 
----
-
 A lot of the problems we had were linked to a bad management of our data, especially when we had to use it on both the server and the client.
 
 One of the most important lessons I learned building a Server Side Rendered Application is the importance of single sources of truth.
@@ -29,7 +27,7 @@ We used this approach for things like the prefix of the static resources of our 
 import getConfig from 'next/config'
 import { createGlobalStyle } from 'styled-components'
 
-const urlPrefix = getConfig.publicRuntimeConfig.urlPrefix
+const urlPrefix = getConfig().publicRuntimeConfig.urlPrefix
 
 export default createGlobalStyle`
   @font-face {
@@ -61,7 +59,7 @@ Therefore your functions must be able to create the same data with the server va
 ```js
 // _app.tsx
 import App, { Container } from 'next/app'
-import React from 'react'
+import * as React from 'react'
 import { getLanguageFromUrl, getLanguageRoots } from '@lib/internationalization'
 import { InternationalContext, QueryContext } from '@hooks/contexts'
 
@@ -178,7 +176,7 @@ export default class MyDocument extends Document {
 ```typescript jsx
 // _app.tsx
 import App, { Container } from 'next/app'
-import React from 'react'
+import * as React from 'react'
 import { FlagContext } from '@hooks/contexts'
 
 class ACE extends App {
@@ -233,8 +231,10 @@ const CountryList = () => {
   React.useEffect(() => {
     const fetch = async () => {
       const response = await fetchCountries()
-      setCountries(countries)
-    }   
+      setCountries(response)
+    }
+
+    fetch()
   })
 
   return countries.map(country => <Country key={country.id} data={country} />)
