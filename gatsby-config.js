@@ -3,6 +3,7 @@ module.exports = {
     title: `A React Journey`,
     description: `Tech blog`,
     author: `@flaviendelangle`,
+    siteUrl: 'https://flavien.netlify.com',
     coordinates: {
       githubProfile: 'https://github.com/flaviendelangle',
     },
@@ -73,5 +74,6 @@ module.exports = {
     },
     `gatsby-plugin-styled-components`,
     `gatsby-plugin-typescript`,
+    `gatsby-plugin-feed`,
   ],
 }
