@@ -1,28 +1,32 @@
 import { get } from 'lodash'
 import * as React from 'react'
 
-import { Link } from '@habx/lib-design-system'
+import { Link, Title } from '@habx/lib-design-system'
 
 import Layout from '@components/structure/Layout'
 
 import { useSiteMetadata } from './About.query'
-import { Resource } from './About.style'
+import { ContactLinks, AboutTitle } from './About.style'
+import ProjectCard from './ProjectCard'
 
 const About: React.FunctionComponent<{}> = () => {
   const metadata = useSiteMetadata()
 
   return (
     <Layout title="About me">
-      <Resource>
+      <AboutTitle>Contact</AboutTitle>
+      <ContactLinks>
         <Link newTab href={get(metadata, 'coordinates.githubProfile')}>
           Github profile
         </Link>
-      </Resource>
-      <Resource>
-        <Link newTab href="https://www.habx.com/en">
-          Official website of Habx
-        </Link>
-      </Resource>
+      </ContactLinks>
+      <AboutTitle>My Latest Projects</AboutTitle>
+      <ProjectCard
+        title="Habx official website"
+        image="habx-website.png"
+        endpoint="https://www.habx.com/en"
+      />
+      {/*
       <Resource>
         <Link newTab href="https://habx.github.io/thunder-ui/">
           Storybook @habx/thunder-ui
@@ -33,6 +37,7 @@ const About: React.FunctionComponent<{}> = () => {
           Storybook @habx/lib-design-system
         </Link>
       </Resource>
+      */}
     </Layout>
   )
 }
