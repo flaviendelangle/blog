@@ -9,3 +9,11 @@ export const ContactLinks = styled.div`
 export const AboutTitle = styled(Title).attrs(() => ({ type: 'article' }))`
   margin-bottom: 24px;
 `
+
+export const ProjectCards = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-flow: row;
+  row-gap: 8px;
+  column-gap: 8px;
+`

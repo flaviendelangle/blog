@@ -1,26 +1,33 @@
 import * as React from 'react'
 
-import { Link, Title } from '@habx/lib-design-system'
+import { Card, Link, Title, Text } from '@habx/lib-design-system'
 
 import { Image } from '@components/atoms'
 
-import { ProjectCardContainer } from './ProjectCard.style'
+import { ProjectCardContainer, ProjectCardContent } from './ProjectCard.style'
 
 const ProjectCard: React.FunctionComponent<ProjectCardProps> = ({
   title,
   image,
   endpoint,
+  description,
 }) => (
-  <Link newTab href={endpoint}>
-    <ProjectCardContainer>
-      <Image name={image} />
-      <Title type="section">{title}</Title>
-    </ProjectCardContainer>
-  </Link>
+  <ProjectCardContainer>
+    <Link newTab href={endpoint}>
+      <Card>
+        <Image name={image} />
+        <ProjectCardContent>
+          <Title type="regular">{title}</Title>
+          <Text>{description}</Text>
+        </ProjectCardContent>
+      </Card>
+    </Link>
+  </ProjectCardContainer>
 )
 
 interface ProjectCardProps {
   title: string
+  description?: string
   image: string
   endpoint: string
 }
