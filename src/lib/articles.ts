@@ -9,4 +9,7 @@ export const CATEGORIES: { [key: string]: category } = {
   ssr: {
     title: 'One year with NextJS',
   },
+  designSystem: {
+    title: 'Building a design system',
+  },
 }

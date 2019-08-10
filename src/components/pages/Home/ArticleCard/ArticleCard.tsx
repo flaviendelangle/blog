@@ -19,8 +19,8 @@ const ArticleCard: React.FunctionComponent<ArticleCardProps> = ({
   const articleTitle = get(article, 'frontmatter.title')
 
   return (
-    <Link to={get(article, 'frontmatter.path')}>
-      <ArticleContainer>
+    <ArticleContainer>
+      <Link to={get(article, 'frontmatter.path')}>
         <Title type="section" primary>
           {categoryTitle ? `${categoryTitle}: ${articleTitle}` : articleTitle}
         </Title>
@@ -29,8 +29,8 @@ const ArticleCard: React.FunctionComponent<ArticleCardProps> = ({
           read
         </ArticleDate>
         <Text>{article.excerpt}</Text>
-      </ArticleContainer>
-    </Link>
+      </Link>
+    </ArticleContainer>
   )
 }
 
