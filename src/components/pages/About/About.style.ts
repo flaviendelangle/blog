@@ -11,9 +11,8 @@ export const AboutTitle = styled(Title).attrs(() => ({ type: 'article' }))`
 `
 
 export const ProjectCards = styled.div`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-auto-flow: row;
-  row-gap: 8px;
-  column-gap: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  margin: -12px -18px;
 `

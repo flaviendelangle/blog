@@ -1,10 +1,14 @@
 import * as React from 'react'
 
-import { Card, Link, Title, Text } from '@habx/lib-design-system'
+import { Link, Title, Text } from '@habx/lib-design-system'
 
-import { Image } from '@components/atoms'
+import { Image, RatioBox } from '@components/atoms'
 
-import { ProjectCardContainer, ProjectCardContent } from './ProjectCard.style'
+import {
+  ProjectCardContainer,
+  ProjectCardContent,
+  ProjectCardInformation,
+} from './ProjectCard.style'
 
 const ProjectCard: React.FunctionComponent<ProjectCardProps> = ({
   title,
@@ -14,13 +18,15 @@ const ProjectCard: React.FunctionComponent<ProjectCardProps> = ({
 }) => (
   <ProjectCardContainer>
     <Link newTab href={endpoint}>
-      <Card>
-        <Image name={image} />
-        <ProjectCardContent>
+      <ProjectCardContent animated>
+        <RatioBox ratio={16 / 9}>
+          <Image name={image} />
+        </RatioBox>
+        <ProjectCardInformation>
           <Title type="regular">{title}</Title>
           <Text>{description}</Text>
-        </ProjectCardContent>
-      </Card>
+        </ProjectCardInformation>
+      </ProjectCardContent>
     </Link>
   </ProjectCardContainer>
 )

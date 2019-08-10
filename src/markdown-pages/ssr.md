@@ -1,7 +1,7 @@
 ---
 path: "/article/ssr/data-management"
-date: "2019-08-01"
-title: "Part 1: Data management"
+date: "2019-08-12"
+title: "Data management"
 category: "ssr"
 ---
 

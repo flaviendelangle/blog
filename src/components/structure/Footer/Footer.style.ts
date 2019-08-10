@@ -22,3 +22,9 @@ export const FooterContent = styled.footer`
     }
   }
 `
+
+export const FooterLinks = styled.div`
+  > *:not(:last-child) {
+    margin-right: 36px;
+  }
+`

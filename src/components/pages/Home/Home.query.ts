@@ -19,6 +19,7 @@ export const useArticleList = (): homePageArticleList_allMarkdownRemark_edges[] 
             excerpt(pruneLength: 250)
             timeToRead
             frontmatter {
+              category
               title
               path
               date(formatString: "MMMM DD, YYYY")
