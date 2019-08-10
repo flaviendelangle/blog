@@ -3,7 +3,7 @@ module.exports = {
     title: `A React Journey`,
     description: `Tech blog`,
     author: `@flaviendelangle`,
-    siteUrl: 'https://flavien.netlify.com',
+    siteUrl: 'https://react-journey.netlify.com',
     coordinates: {
       githubProfile: 'https://github.com/flaviendelangle',
     },
@@ -28,7 +28,7 @@ module.exports = {
         background_color: `#663399`,
         theme_color: `#663399`,
         display: `minimal-ui`,
-        icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
+        icon: `src/images/favicon.svg`, // This path is relative to the root of the site.
       },
     },
     // this (optional) plugin enables Progressive Web App + Offline functionality

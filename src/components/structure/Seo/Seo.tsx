@@ -20,7 +20,9 @@ const Seo: React.FunctionComponent<SeoProps> = ({
         lang,
       }}
       title={title}
-      titleTemplate={`%s | ${siteMetadata.title}`}
+      titleTemplate={
+        title === siteMetadata.title ? '%s' : `%s | ${siteMetadata.title}`
+      }
       meta={[
         {
           name: `description`,

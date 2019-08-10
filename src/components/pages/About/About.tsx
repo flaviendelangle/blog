@@ -6,33 +6,41 @@ import { Link } from '@habx/lib-design-system'
 import Layout from '@components/structure/Layout'
 
 import { useSiteMetadata } from './About.query'
-import { Resource } from './About.style'
+import { ContactLinks, AboutTitle, ProjectCards } from './About.style'
+import ProjectCard from './ProjectCard'
 
 const About: React.FunctionComponent<{}> = () => {
   const metadata = useSiteMetadata()
 
   return (
     <Layout title="About me">
-      <Resource>
+      <AboutTitle>Contact</AboutTitle>
+      <ContactLinks>
         <Link newTab href={get(metadata, 'coordinates.githubProfile')}>
           Github profile
         </Link>
-      </Resource>
-      <Resource>
-        <Link newTab href="https://www.habx.com/en">
-          Official website of Habx
-        </Link>
-      </Resource>
-      <Resource>
-        <Link newTab href="https://habx.github.io/thunder-ui/">
-          Storybook @habx/thunder-ui
-        </Link>
-      </Resource>
-      <Resource>
-        <Link newTab href="https://habx.github.io/lib-design-system/">
-          Storybook @habx/lib-design-system
-        </Link>
-      </Resource>
+      </ContactLinks>
+      <AboutTitle>My Latest Projects</AboutTitle>
+      <ProjectCards>
+        <ProjectCard
+          title="Habx official website"
+          image="habx-website.png"
+          endpoint="https://www.habx.com/en"
+          description="Official website of Habx. Built with NextJS and Styled Components"
+        />
+        <ProjectCard
+          title="Thunder UI"
+          image="thunder-ui.png"
+          endpoint="https://github.com/habx/thunder-ui"
+          description="UI Library optimized for back office applications and rich interfaces. Built with TypeScript and styled-components"
+        />
+        <ProjectCard
+          title="Habx design system"
+          image="habx-meta-share.png"
+          endpoint="https://habx.github.io/lib-design-system/"
+          description="UI Library optimized for static content and theme customizations. Built with TypeScript and styled-components"
+        />
+      </ProjectCards>
     </Layout>
   )
 }
