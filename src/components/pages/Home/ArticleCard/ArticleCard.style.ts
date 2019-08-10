@@ -1,10 +1,14 @@
 import styled from 'styled-components'
 
-import { Text } from '@habx/lib-design-system'
+import { breakpoints, Text } from '@habx/lib-design-system'
 
 export const ArticleContainer = styled.div`
   &:not(:first-child) {
-    margin-top: 24px;
+    margin-top: 48px;
+
+    @media (${breakpoints.below.smallTablet}) {
+      margin-top: 24px;
+    }
   }
 `
 
