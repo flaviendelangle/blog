@@ -2,7 +2,7 @@ import * as React from 'react'
 
 import { Text, Link, palette } from '@habx/lib-design-system'
 
-import { FooterContainer, FooterContent } from './Footer.style'
+import { FooterContainer, FooterContent, FooterLinks } from './Footer.style'
 
 const Footer: React.FunctionComponent<{}> = () => (
   <FooterContainer backgroundColor={palette.darkBlue[900]}>
@@ -17,9 +17,14 @@ const Footer: React.FunctionComponent<{}> = () => (
           @habx/lib-design-system
         </Link>
       </Text>
-      <Link secondary newTab href="/rss.xml">
-        RSS
-      </Link>
+      <FooterLinks>
+        <Link secondary newTab href="/rss.xml">
+          RSS
+        </Link>
+        <Link secondary newTab href="https://github.com/flaviendelangle/blog">
+          Github
+        </Link>
+      </FooterLinks>
     </FooterContent>
   </FooterContainer>
 )

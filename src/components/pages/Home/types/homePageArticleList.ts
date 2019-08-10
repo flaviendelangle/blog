@@ -8,6 +8,7 @@
 
 export interface homePageArticleList_allMarkdownRemark_edges_node_frontmatter {
   __typename: "MarkdownRemarkFrontmatter";
+  category: string | null;
   title: string | null;
   path: string | null;
   date: any | null;
@@ -32,5 +33,5 @@ export interface homePageArticleList_allMarkdownRemark {
 }
 
 export interface homePageArticleList {
-  allMarkdownRemark: homePageArticleList_allMarkdownRemark | null;
+  allMarkdownRemark: homePageArticleList_allMarkdownRemark;
 }

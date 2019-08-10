@@ -32,5 +32,5 @@ export interface imageSharp_allImageSharp {
 }
 
 export interface imageSharp {
-  allImageSharp: imageSharp_allImageSharp | null;
+  allImageSharp: imageSharp_allImageSharp;
 }
