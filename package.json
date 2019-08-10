@@ -57,7 +57,7 @@
     "@habx/eslint-config-client": "^2.0.6",
     "@types/lodash": "^4.14.136",
     "@types/node": "^12.6.8",
-    "@types/react": "^16.8.23",
+    "@types/react": "^16.9.1",
     "@types/react-dom": "^16.8.5",
     "@types/react-helmet": "^5.0.8",
     "@types/styled-components": "^4.1.18",
