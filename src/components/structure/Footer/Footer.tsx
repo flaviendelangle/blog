@@ -17,7 +17,7 @@ const Footer: React.FunctionComponent<{}> = () => (
           @habx/lib-design-system
         </Link>
       </Text>
-      <Link secondary newTab href="/">
+      <Link secondary newTab href="/rss.xml">
         RSS
       </Link>
     </FooterContent>

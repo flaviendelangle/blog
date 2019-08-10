@@ -19,23 +19,38 @@ These issues taught me the importance of single sources of truth. Indeed, in an 
 
 If the data you want to use can be determined ahead of runtime, the best solution is to use [publicRuntimeConfig](https://github.com/zeit/next.js/#runtime-configuration). This object is part of the NextJS config and will be accessible on both the server and the client.
 
-We used this approach for things like the prefix of the static resources of our project.
+We used this approach for things like api credentials.
+First you need to defined a *publicRuntimeConfig* key into your Next config. This will be the object you will be asking for inside your application.
+Make sure you only put things that you are willing to make public inside your bundle. For secret content, NextJS gives you another key names *serverRuntimeConfig* which wont be passed to the client.
 
-```typescript jsx
+```jsx harmony
+// next.config.js
+const env = require('./config')
+
+module.exports = {
+  publicRuntimeConfig: {
+    googleMapApiKey: env.get('googleMapApiKey'),
+    /* ... */
+  },
+  /* ... */
+}
+```
+
+Then you just have to call *getConfig()* to retrieve what you need.
+
+```jsx harmony
+// components/Map.tsx
+import * as React from 'react'
 import getConfig from 'next/config'
-import { createGlobalStyle } from 'styled-components'
+import GoogleMap from 'google-map-react'
 
-const urlPrefix = getConfig().publicRuntimeConfig.urlPrefix
+const API_KEYS = {
+  key: getConfig().publicRuntimeConfig.googleMapApiKey,
+}
 
-export default createGlobalStyle`
-  @font-face {
-    font-family: 'custom-font';
-    src: url('${urlPrefix}/static/fonts/custom-font.woff2') format('woff2'),
-    font-weight: normal;
-    font-style: normal;
-    font-display: fallback;
-  } 
-`
+const Map = props => <GoogleMap bootstrapURLKeys={API_KEYS} {...props} />
+
+export default Map
 ```
 
 ---
@@ -54,8 +69,8 @@ That's why we decided to use *_app.js* to compute them.
 It's important to remember that *_app.js* is executed both on the server and on the client. 
 Therefore your functions must be able to create the same data with the server variables (often **req**) and the client variables (often **window**).
 
-```js
-// _app.tsx
+```jsx harmony
+// pages/_app.tsx
 import App, { Container } from 'next/app'
 import * as React from 'react'
 import { getLanguageFromUrl, getLanguageRoots } from '@lib/internationalization'
@@ -114,7 +129,7 @@ For this kind of data, it's impossible to use *_app.js* because any page accesse
 The solution we came with is to compute the data in an Express Middleware and to store it on **req**.
 Then we just have to write it on **window** in *_document.js* to be able to access it both on server and client side in *_app.js*.
 
-```typescript jsx
+```jsx harmony
 // server.ts
 import express from 'express'
 import next from 'next'
@@ -132,10 +147,12 @@ const run = async () => {
   const server = express()
   server.use(reactContextMiddleware)
 }
+
+run()
 ```
 
-```typescript jsx
-// _document.tsx
+```jsx harmony
+// pages/_document.tsx
 import Document, { Head, Main, NextScript } from 'next/document'
 import * as React from 'react'
 
@@ -171,8 +188,8 @@ export default class MyDocument extends Document {
 }
 ```
 
-```typescript jsx
-// _app.tsx
+```jsx harmony
+// pages/_app.tsx
 import App, { Container } from 'next/app'
 import * as React from 'react'
 import { FlagContext } from '@hooks/contexts'
@@ -180,7 +197,9 @@ import { FlagContext } from '@hooks/contexts'
 class ACE extends App {
   static async getInitialProps({ Component, ctx }) {
     let pageProps = {}
-    const reactContext = ctx.req ? ctx.req.aceContext : window.aceContext
+    const reactContext = ctx.req 
+      ? ctx.req.aceContext 
+      : window.aceContext
 
     if (Component.getInitialProps) {
       pageProps = await Component.getInitialProps({
@@ -216,9 +235,10 @@ class ACE extends App {
 ---
 ### For API data, use a global state (ex: Redux, Apollo Client)
 
-On a regular React Application, you may be tempted to use local state to fetch data used only on specific parts of your application.
+On a regular React application, you may be tempted to use the local state to store data used only on specific parts of your application.
 
-```typescript jsx
+```jsx harmony
+// components/CountryList.tsx
 import * as React from 'react'
 import { fetchCountries } from '@lib/countries'
 import { Country } from '@components/molecules'
@@ -245,15 +265,16 @@ This issue can be solved by using a global state and by passing it from the serv
 The solution we decided to use last summer when we began to do API calls on our project was Redux because at the time it was our main store on most of our codebase.
 We used [next-redux-wrapper](https://github.com/kirill-konshin/next-redux-wrapper) which make the usage of Redux with NextJS super easy.
 
-To be sure to have the data loaded into your store and your components before sending the HTML to the client, make sure to fetch it in *Page.getInitialProps*.
+If you want your data to be loaded into your store and your components before sending the HTML to the client, make sure to fetch it in *Page.getInitialProps*.
 
-```typescript jsx
+```jsx harmony
+// pages/content.tsx
 import * as React from 'react'
 import { useSelector } from 'react-redux'
 
 import { fetchContent } from '@actions/content'
 
-const Page = () => {
+const ContentPage = () => {
   const content = useSelector(state => state.content)
 
   return (
@@ -264,7 +285,7 @@ const Page = () => {
   )
 }
 
-Page.getInitialProps = async ({ store, query }) => {
+ContentPage.getInitialProps = async ({ store, query }) => {
   await store.dispatch(fetchContent({ id: query.id }))
 }
 ```
@@ -272,7 +293,7 @@ Page.getInitialProps = async ({ store, query }) => {
 ---
 ### Recap
 
-Managing your data in a SSR application can be quite hard, especially if your global structure is not adapted. In the last year, we came to the following conclusions :
+Managing your data in a server side rendered application can be quite hard, especially if your global structure is not adapted. In the last year, we came to the following conclusions :
 
 1) If your data can be determined at build time, use **publicRuntimeConfig**
 2) For static data, use **React.createContext** and generate data in *_document.js* or *_app.js* to avoid inconsistencies

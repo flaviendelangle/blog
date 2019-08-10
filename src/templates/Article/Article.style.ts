@@ -11,7 +11,7 @@ export const ArticleMarkdown = styled(Text)`
 
   & hr {
     margin: 36px 0 48px 0;
-    border: 1px solid ${palette.darkBlue[300]};
+    border: 0.5px solid ${palette.darkBlue[300]};
   }
 
   & ol,
