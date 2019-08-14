@@ -34,7 +34,7 @@
     "url": "https://github.com/flaviendelangle/blog/issues"
   },
   "dependencies": {
-    "@habx/lib-design-system": "^1.22.0",
+    "@habx/lib-design-system": "^1.23.0",
     "gatsby": "^2.13.57",
     "gatsby-image": "^2.2.8",
     "gatsby-plugin-manifest": "^2.2.5",
