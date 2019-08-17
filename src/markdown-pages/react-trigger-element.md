@@ -8,7 +8,7 @@ category: "react"
 If you have done some projects with *ReactJS*, you have probably encountered very repetitive code snippets.
 For instance, writing a toggle to open a **Modal** component used to look like this :
 
-```jsx harmony
+```jsx
 // ShareModal.tsx
 import * as React from 'react'
 import Modal from '@components/Modal'
@@ -41,7 +41,7 @@ export default ShareModal
 
 A few months ago, hooks came out and reduced the boilerplate for these simple state scenarios.
 
-```jsx harmony
+```jsx
 // ShareModal.tsx
 import * as React from 'react'
 import Modal from '@components/Modal'
@@ -72,7 +72,7 @@ Yet, it still feels like there is a lot of useless boilerplate here. We are writ
 When I try to solve a problem, I like to first take a look at the code I would like to write. 
 In this problem, the part that I try to get rid of, is the toggle management represented by these three statements :
 
-```jsx harmony
+```jsx
 const [isOpened, setOpened] = React.useState(false)
 
 const handleModalOpen = () => setOpened(true)
@@ -81,7 +81,7 @@ const handleModalClose = () => setOpened(false)
 
 Of course, removing these three lines leaves us with an error.
 
-```jsx harmony
+```jsx
 // Error: handleModalOpen, handleModalClose and isOpened are not defined
 const ShareModal = props => (
   <React.Fragment>
@@ -95,7 +95,7 @@ const ShareModal = props => (
 
 The idea here is to let the modal handle the toggling behavior.
 
-```jsx harmony
+```jsx
 // ShareModal.tsx
 import * as React from 'react'
 import Modal from '@components/Modal'
@@ -115,7 +115,7 @@ export default ShareModal
 
 Our goal is to isolate the redundant parts into a High Order Components that will wrap components like Modal, Menu or Drawer.
 
-```jsx harmony
+```jsx
 // withTriggerElement.tsx
 import * as React from 'react'
 
@@ -142,7 +142,7 @@ const withTriggerElement = WrappedComponent => {
 }
 ```
 
-```jsx harmony
+```jsx
 // Modal.tsx
 import * as React from 'react'
 import withTriggerElement from '@helpers/withTriggerElement'
@@ -154,7 +154,7 @@ const Modal = () => {
 export default withTriggerElement(Modal)
 ```
 
-```jsx harmony
+```jsx
 // ShareModal.tsx
 import * as React from 'react'
 import Modal from '@components/Modal'
@@ -178,7 +178,7 @@ Let's focus on some basic ones :
 
 This is probably the easiest scenario. You just have to check of *triggerElement* exist and to do nothing if it doesnt.
 
-```jsx harmony
+```jsx
 // withTriggerElement.tsx
 import * as React from 'react'
 
@@ -220,7 +220,7 @@ When you build a High Order Component which inject props into your component, al
 For this HOC, we don't want to handle this scenario because it does not make sense.
 If we give a *triggerElement* to the modal, it's because we don't want to handle to toggling behavior.
 
-```jsx harmony
+```jsx
 const ShareModal = props => (
   <Modal triggerElement={<Button>Share !</Button>} open={false}>
     <ShareForm {...props} />
@@ -232,7 +232,7 @@ const ShareModal = props => (
 
 For the *onClose* property, it is different because you may want to trigger some logic when the user closes the modal (tracking, closing subscription etc...)
 
-```jsx harmony
+```jsx
 const ShareModal = props => (
   <Modal 
     triggerElement={<Button>Share !</Button>} 
@@ -243,7 +243,7 @@ const ShareModal = props => (
 )
 ```
 
-```jsx harmony
+```jsx
 // withTriggerElement.tsx
 import * as React from 'react'
 
@@ -292,7 +292,7 @@ But this would make our whole method a lot heavier and harder to read for just a
 This is why it is important to let the component pass manually *onClose* and *open* if he wants to. That way, you are never blocking any weird corner case.
 
 
-```jsx harmony
+```jsx
 import * as React from 'react'
 import Modal from '@components/Modal'
 
