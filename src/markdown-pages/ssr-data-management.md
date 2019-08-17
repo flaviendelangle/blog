@@ -293,7 +293,7 @@ ContentPage.getInitialProps = async ({ store, query }) => {
 
 Managing your data in a server side rendered application can be quite hard, especially if your global structure is not adapted. In the last year, we came to the following conclusions :
 
-1) If your data can be determined at build time, use **publicRuntimeConfig**
+1) If your data can be determined at build time, use **next.config.js**
 2) For static data, use **React.createContext** and generate data in *_document.js* or *_app.js* to avoid inconsistencies
 3) For API data, use a global store like **Redux** or **Apollo Client** and fetch everything in **Page.getInitialProps**
 
