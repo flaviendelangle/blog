@@ -36,11 +36,15 @@ export const ArticleMarkdown = styled(Text)`
     overflow: hidden;
     margin-top: 24px;
 
-    & pre[class*='language-'] {
-    }
-
     @media (${breakpoints.below.phone}) {
       margin: 0 -24px;
+    }
+
+    & .gatsby-highlight-code-line {
+      display: block;
+      background-color: rgba(255, 255, 255, 0.156);
+      margin: 0 -16px;
+      padding: 0 16px;
     }
   }
 `
