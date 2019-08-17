@@ -23,7 +23,7 @@ We used this approach for things like api credentials.
 First you need to defined a *publicRuntimeConfig* key into your Next config. This will be the object you will be asking for inside your application.
 Make sure you only put things that you are willing to make public inside your bundle. For secret content, NextJS gives you another key names *serverRuntimeConfig* which wont be passed to the client.
 
-```jsx harmony
+```js
 // next.config.js
 const env = require('./config')
 
@@ -38,8 +38,8 @@ module.exports = {
 
 Then you just have to call *getConfig()* to retrieve what you need.
 
-```jsx harmony
-// components/Map.tsx
+```jsx
+// components/Map.js
 import * as React from 'react'
 import getConfig from 'next/config'
 import GoogleMap from 'google-map-react'
@@ -69,7 +69,7 @@ That's why we decided to use *_app.js* to compute them.
 It's important to remember that *_app.js* is executed both on the server and on the client. 
 Therefore your functions must be able to create the same data with the server variables (often **req**) and the client variables (often **window**).
 
-```jsx harmony
+```jsx
 // pages/_app.tsx
 import App, { Container } from 'next/app'
 import * as React from 'react'
@@ -129,7 +129,7 @@ For this kind of data, it's impossible to use *_app.js* because any page accesse
 The solution we came with is to compute the data in an Express Middleware and to store it on **req**.
 Then we just have to write it on **window** in *_document.js* to be able to access it both on server and client side in *_app.js*.
 
-```jsx harmony
+```jsx
 // server.ts
 import express from 'express'
 import next from 'next'
@@ -151,7 +151,7 @@ const run = async () => {
 run()
 ```
 
-```jsx harmony
+```jsx
 // pages/_document.tsx
 import Document, { Head, Main, NextScript } from 'next/document'
 import * as React from 'react'
@@ -188,7 +188,7 @@ export default class MyDocument extends Document {
 }
 ```
 
-```jsx harmony
+```jsx
 // pages/_app.tsx
 import App, { Container } from 'next/app'
 import * as React from 'react'
@@ -237,7 +237,7 @@ class ACE extends App {
 
 On a regular React application, you may be tempted to use the local state to store data used only on specific parts of your application.
 
-```jsx harmony
+```jsx
 // components/CountryList.tsx
 import * as React from 'react'
 import { fetchCountries } from '@lib/countries'
@@ -267,7 +267,7 @@ We used [next-redux-wrapper](https://github.com/kirill-konshin/next-redux-wrappe
 
 If you want your data to be loaded into your store and your components before sending the HTML to the client, make sure to fetch it in *Page.getInitialProps*.
 
-```jsx harmony
+```jsx
 // pages/content.tsx
 import * as React from 'react'
 import { useSelector } from 'react-redux'
