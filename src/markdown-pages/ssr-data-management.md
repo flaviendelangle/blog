@@ -15,20 +15,19 @@ A lot of the problems we had were linked to a bad management of our data, especi
 These issues taught me the importance of single sources of truth. Indeed, in an application built with NextJS, all of our React code is executed twice. Therefore, we must structure all of our data to avoid inconsistencies between both worlds.
 
 ---
-### Use NextJS runtime config whenever possible
+### Use env variables whenever possible
 
-If the data you want to use can be determined ahead of runtime, the best solution is to use [publicRuntimeConfig](https://github.com/zeit/next.js/#runtime-configuration). This object is part of the NextJS config and will be accessible on both the server and the client.
+If the data you want to use can be determined ahead of runtime, the best solution is to pass it in [config.env](https://github.com/zeit/next.js/#exposing-configuration-to-the-server--client-side). 
 
 We used this approach for things like api credentials.
-First you need to defined a *publicRuntimeConfig* key into your Next config. This will be the object you will be asking for inside your application.
-Make sure you only put things that you are willing to make public inside your bundle. For secret content, NextJS gives you another key names *serverRuntimeConfig* which wont be passed to the client.
+First you need to defined an *env* key into your NextJS config. This object will contain the variable you want NextJS to inline inside your Javascript bundle.
 
 ```js
 // next.config.js
 const env = require('./config')
 
 module.exports = {
-  publicRuntimeConfig: {
+  env: {
     googleMapApiKey: env.get('googleMapApiKey'),
     /* ... */
   },
@@ -41,11 +40,10 @@ Then you just have to call *getConfig()* to retrieve what you need.
 ```jsx
 // components/Map.js
 import * as React from 'react'
-import getConfig from 'next/config'
 import GoogleMap from 'google-map-react'
 
 const API_KEYS = {
-  key: getConfig().publicRuntimeConfig.googleMapApiKey,
+  key: process.env.googleMapApiKey,
 }
 
 const Map = props => <GoogleMap bootstrapURLKeys={API_KEYS} {...props} />
