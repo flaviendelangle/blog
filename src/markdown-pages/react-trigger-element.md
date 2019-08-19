@@ -1,6 +1,6 @@
 ---
 path: "/article/react/trigger-element"
-date: "2019-08-17"
+date: "2019-08-19"
 title: "The Trigger Element pattern"
 category: "react"
 ---
@@ -39,7 +39,7 @@ class ShareModal extends React.Component {
 export default ShareModal
 ```
 
-A few months ago, hooks came out and reduced the boilerplate for these simple state scenarios.
+A few months ago, hooks came out and reduced slightly the boilerplate for these simple state scenarios.
 
 ```jsx
 // ShareModal.tsx
@@ -67,10 +67,14 @@ const ShareModal = props => {
 export default ShareModal
 ```
 
-Yet, it still feels like there is a lot of useless boilerplate here. We are writing about 20 lines of code just to create a Button and to link it with the modal.
+Yet, it still feels like there is a lot of useless code here. We are writing about 20 lines just to create a Button and to link it with the modal.
 
-When I try to solve a problem, I like to first take a look at the code I would like to write. 
-In this problem, the part that I try to get rid of, is the toggle management represented by these three statements :
+---
+### How could we improve this ?
+
+Before creating a non-trivial function, try to first take a look at what a code using it should look like.
+
+In this problem, the part that we try to get rid of, is the toggle management represented by these three statements :
 
 ```jsx
 const [isOpened, setOpened] = React.useState(false)
@@ -79,7 +83,7 @@ const handleModalOpen = () => setOpened(true)
 const handleModalClose = () => setOpened(false)
 ```
 
-Of course, removing these three lines leaves us with an error.
+As expected, removing these three lines leaves us with an error.
 
 ```jsx
 // Error: handleModalOpen, handleModalClose and isOpened are not defined
@@ -110,10 +114,13 @@ const ShareModal = props => (
 export default ShareModal
 ```
 
-
+---
 ### Basic implementation
 
-Our goal is to isolate the redundant parts into a High Order Components that will wrap components like Modal, Menu or Drawer.
+Our goal is to isolate the redundant parts into a *High Order Components* that will wrap components like modals, menus or drawers.
+
+The behavior of this function is pretty straightforward. 
+We are using *React.cloneElement* to inject our *handleOpen* property into the trigger element and given our *handleClose* to the wrapped component.
 
 ```jsx
 // withTriggerElement.tsx
@@ -128,7 +135,9 @@ const withTriggerElement = WrappedComponent => {
 
     return (
       <React.Fragment>
+        // highlight-start
         {React.cloneElement(triggerElement, { onClick: handleOpen })}
+        // highlight-end
         <WrappedComponent
           {...rest}
           open={open}
@@ -169,14 +178,15 @@ const ShareModal = props => (
 export default ShareModal
 ```
 
+---
 ### What is missing ?
 
 Most of the time, the first draft handle the basic use cases but you will soon reach scenarios where it doesn't work.
 Let's focus on some basic ones :
 
-#### What if I don't want to use a trigger element on a specific modal ?
+#### What if we don't want to use a trigger element on a specific modal ?
 
-This is probably the easiest scenario. You just have to check of *triggerElement* exist and to do nothing if it doesnt.
+This is probably the easiest scenario. You just have to check if *triggerElement* exists and to do nothing if it doesnt.
 
 ```jsx
 // withTriggerElement.tsx
@@ -211,7 +221,7 @@ const withTriggerElement = WrappedComponent => {
 }
 ```
 
-#### What if I pass a custom onClose / open property to my modal ?
+#### What if we pass a custom onClose / open property to my modal ?
 
 When you build a High Order Component which inject props into your component, always check the scenario where a component gives you a property with the same name.
 
@@ -283,11 +293,11 @@ const withTriggerElement = WrappedComponent => {
 }
 ```
 
-#### What if I have two buttons to open the same modal ?
+#### What if we have two buttons to open the same modal ?
 
 If we continue to search for corner case, we will try to find these kind of weird scenarios.
-Or course we should rework our High Order Components to take two *triggerElement*, or even references to other buttons if there are not next to one another. 
-But this would make our whole method a lot heavier and harder to read for just a few weird scenarios that will rarely happens.
+Or course we could rework our High Order Components to take two *triggerElement*, or even references to other buttons if there are not next to one another. 
+But this would make our whole code a lot heavier and harder to read for just a few weird scenarios that will rarely happens.
 
 This is why it is important to let the component pass manually *onClose* and *open* if he wants to. That way, you are never blocking any weird corner case.
 
@@ -319,10 +329,10 @@ const ShareModal = props => {
 export default ShareModal
 ```
 
-
+---
 ### Recap
 
-- When you are building a reusable method, try to first ask yourself *"What should the method call look like ?"*
+- When you are building a reusable function, try to first ask yourself *"What should the function call look like ?"*
 
 - Focus on a simple implementation that will cover most of the use cases.
 
