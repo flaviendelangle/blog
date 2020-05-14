@@ -35,7 +35,7 @@
   },
   "dependencies": {
     "@habx/lib-design-system": "^1.23.1",
-    "gatsby": "^2.14.4",
+    "gatsby": "^2.21.30",
     "gatsby-image": "^2.2.14",
     "gatsby-plugin-manifest": "^2.2.9",
     "gatsby-plugin-offline": "^2.2.10",
